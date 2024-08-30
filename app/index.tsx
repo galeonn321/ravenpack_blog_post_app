@@ -1,15 +1,17 @@
-import { Text, View } from 'react-native';
+import { GluestackUIProvider, StatusBar } from '@gluestack-ui/themed';
+import { config } from '@gluestack-ui/config';
+import MainNavigator from './src/navigator/MainNavigator';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export default function Index() {
+const queryClient = new QueryClient();
+
+export default function App() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <GluestackUIProvider config={config}>
+        <StatusBar />
+        <MainNavigator />
+      </GluestackUIProvider>
+    </QueryClientProvider>
   );
 }

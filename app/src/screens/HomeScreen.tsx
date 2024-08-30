@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, Text, View } from '@gluestack-ui/themed';
 import { useNavigation } from 'expo-router';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { FlatList } from 'react-native-gesture-handler';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PostCard from '../components/PostCard';
 import { LOG } from '../config/logger';
-import { getPosts, getUserById } from '@/app/actions';
+import { getPosts } from '@/app/actions';
 
 const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -18,11 +17,12 @@ const HomeScreen = () => {
     initialPageParam: 0,
     queryFn: async () => {
       const posts = await getPosts();
-
-      const users = await getUserById();
+      // LOG.info(posts.at(0)?.body, 'posts');
       posts.forEach((post) => {
-        queryClient.setQueryData([post.id], post);
+        queryClient.setQueryData([post.postId], post);
       });
+
+      LOG.info(posts.at(10));
       return posts;
     },
     getNextPageParam: (pages) => pages.length,
@@ -48,7 +48,7 @@ const HomeScreen = () => {
         )}
         renderItem={({ item }) => <PostCard post={item} />}
         onEndReachedThreshold={0.6}
-        // onEndReached={() => fetchNextPage()}
+        onEndReached={() => fetchNextPage()}
         showsVerticalScrollIndicator={false}
       />
     </View>

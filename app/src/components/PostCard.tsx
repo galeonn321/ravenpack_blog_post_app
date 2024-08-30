@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   Heading,
+  Pressable,
   Text,
   View,
   VStack,
@@ -16,60 +17,57 @@ import { useNavigation } from 'expo-router';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParams } from '../navigator/MainNavigator';
 import { format, compareAsc } from 'date-fns';
+import { PostWithUser } from '../domain/entities/postWithUser';
 
 interface Props {
-  post: Post;
+  post: PostWithUser;
 }
 
 const PostCard = ({ post }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-
   return (
-    <Card p='$5' borderRadius='$lg' maxWidth={300} m='$3'>
-      <Text
-        fontSize='$sm'
-        fontStyle='normal'
-        fontFamily='$heading'
-        fontWeight='$normal'
-        lineHeight='$sm'
-        mb='$2'
-        sx={{
-          color: '$textLight700',
-          _dark: {
-            color: '$textDark200',
-          },
-        }}
-      >
-        {format(new Date(2014, 1, 11), 'dd/MM/yyyy')}
-      </Text>
-      <VStack mb='$6'>
-        <Heading size='md' fontFamily='$heading' mb='$4'>
-          {post.title}
-        </Heading>
-        <Text size='sm' fontFamily='$heading'>
-          {post.body}
+    <Pressable onPress={() => navigation.navigate('PostDetailScreen', { post: post })}>
+      <Card p='$5' borderRadius='$lg' maxWidth={300} m='$3'>
+        <Text
+          fontSize='$sm'
+          fontStyle='normal'
+          fontFamily='$heading'
+          fontWeight='$normal'
+          lineHeight='$sm'
+          mb='$2'
+          sx={{
+            color: '$textLight700',
+            _dark: {
+              color: '$textDark200',
+            },
+          }}
+        >
+          {format(new Date(2014, 1, 11), 'dd/MM/yyyy')}
         </Text>
-      </VStack>
-      <Box flexDirection='row'>
-        <Avatar mr='$3'>
-          <AvatarFallbackText fontFamily='$heading'>RR</AvatarFallbackText>
-          <AvatarImage
-            source={{
-              uri: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-            }}
-            alt='profile picture'
-          />
-        </Avatar>
-        <VStack>
-          <Heading size='sm' fontFamily='$heading' mb='$1'>
-            John Smith
+        <VStack mb='$6'>
+          <Heading size='md' fontFamily='$heading' mb='$4'>
+            {post.title}
           </Heading>
           <Text size='sm' fontFamily='$heading'>
-            Motivational Speaker
+            {post.body}
           </Text>
         </VStack>
-      </Box>
-    </Card>
+        <Box flexDirection='row'>
+          <Avatar mr='$3'>
+            <AvatarFallbackText fontFamily='$heading'>RR</AvatarFallbackText>
+            <AvatarImage source={post.user?.avatar} alt='profile picture' />
+          </Avatar>
+          <VStack>
+            <Heading size='sm' fontFamily='$heading' mb='$1'>
+              {post.user?.name}
+            </Heading>
+            <Text size='sm' fontFamily='$heading'>
+              @{post.user?.username}
+            </Text>
+          </VStack>
+        </Box>
+      </Card>
+    </Pressable>
   );
 };
 

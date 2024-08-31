@@ -1,10 +1,9 @@
 import { LOG } from '../../config/logger';
-import { Post } from '../../domain/entities/post';
-import { PostWithUser, User } from '../../domain/entities/postWithUser';
+import { UserWithComments } from '../../domain/entities/UserWithComments';
 import { AvatarUserById } from '../../lib/AvatarUserById';
 
-export class PostMapper {
-  static postApiToEntity(post: Post, users: User[]): PostWithUser {
+export class CommentMapper {
+  static CommentApiToEntity(comment: UserWithComments, avatar: string): PostWithUser {
     const user = users.find((user) => user.id === post.userId);
 
     const cleanedBody = post.body.replace(/\n/g, ' ');

@@ -7,7 +7,7 @@ import { PostWithUser } from '../domain/entities/postWithUser';
 export type RootStackParams = {
   HomeScreen: undefined;
   PostDetailScreen: { post: PostWithUser };
-  UserPostsScreen: undefined;
+  UserPostsScreen: { userId: number };
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -22,12 +22,32 @@ function MainNavigator() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+      <Stack.Screen
+        name='PostDetailScreen'
+        component={PostDetailScreen}
+        options={{
+          title: '',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+        }}
+      />
       <Stack.Screen
         name='UserPostsScreen'
         component={UserPostsScreen}
         options={{
-          headerShown: false,
+          title: '',
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTintColor: '#000',
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
         }}
       />
     </Stack.Navigator>

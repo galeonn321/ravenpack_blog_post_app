@@ -2,20 +2,22 @@ import { AxiosError } from 'axios';
 import { postsApi } from '../api/postsApi';
 import { Post } from '../domain/entities/post';
 import { PostWithUser } from '../domain/entities/postWithUser';
-import { AvatarUserById } from '../lib/AvatarUserById';
 import { getUserById } from './get-Users';
 import { LOG } from '../config/logger';
 import { PostMapper } from '../infrastructure/mappers/post.mapper';
+import { UserWithComments } from '../domain/entities/UserWithComments';
+import { CommentMapper } from '../infrastructure/mappers/Comment.mapper';
 
-export const getPosts = async (): Promise<PostWithUser[]> => {
+export const getCommentsByUser = async (userId: number): Promise<UserWithComments[]> => {
   try {
-    const url = `/posts`;
-    const users = await getUserById();
-    const { data } = await postsApi.get<Post[]>(url);
+    const url = `posts/${userId}/comments`;
+    const { data } = await postsApi.get<UserWithComments[]>(url);
 
-    const postWithUser = data.map((post) => PostMapper.postApiToEntity(post, users));
+    const postWithComment = data.map((comment) =>
+      CommentMapper.CommentApiToEntity(comment, avatar)
+    );
 
-    return postWithUser;
+    return data;
   } catch (error) {
     if (error instanceof AxiosError) {
       LOG.error('Axios error while fetching posts:', error.message);

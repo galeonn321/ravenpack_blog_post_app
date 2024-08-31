@@ -9,45 +9,15 @@ import avatar8 from '../../../assets/avatars/avatar8.jpg';
 import avatar9 from '../../../assets/avatars/avatar9.jpg';
 import avatar10 from '../../../assets/avatars/avatar10.jpg';
 
-export const AvatarUserById = [
-  {
-    userId: 1,
-    avatar: avatar1,
-  },
-  {
-    userId: 2,
-    avatar: avatar2,
-  },
-  {
-    userId: 3,
-    avatar: avatar3,
-  },
-  {
-    userId: 4,
-    avatar: avatar4,
-  },
-  {
-    userId: 5,
-    avatar: avatar5,
-  },
-  {
-    userId: 6,
-    avatar: avatar6,
-  },
-  {
-    userId: 7,
-    avatar: avatar7,
-  },
-  {
-    userId: 8,
-    avatar: avatar8,
-  },
-  {
-    userId: 9,
-    avatar: avatar9,
-  },
-  {
-    userId: 10,
-    avatar: avatar10,
-  },
-];
+export const AvatarUserById: Record<number, string> = {
+  1: avatar1,
+  2: avatar2,
+  3: avatar3,
+  4: avatar4,
+  5: avatar5,
+  6: avatar6,
+  7: avatar7,
+  8: avatar8,
+  9: avatar9,
+  10: avatar10,
+};

@@ -22,13 +22,7 @@ function MainNavigator() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name='PostDetailScreen'
-        component={PostDetailScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
       <Stack.Screen
         name='UserPostsScreen'
         component={UserPostsScreen}

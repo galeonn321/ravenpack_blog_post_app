@@ -1,7 +1,6 @@
-import { AxiosError } from 'axios';
-import { postsApi } from '../src/api/postsApi';
-import { LOG } from '../src/config/logger';
-import { User } from '../src/domain/entities/user';
+import { postsApi } from '../api/postsApi';
+import { LOG } from '../config/logger';
+import { User } from '../domain/entities/postWithUser';
 
 export const getUserById = async (): Promise<User[]> => {
   try {

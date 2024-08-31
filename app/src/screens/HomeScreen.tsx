@@ -6,7 +6,7 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { FlatList } from 'react-native-gesture-handler';
 import PostCard from '../components/PostCard';
 import { LOG } from '../config/logger';
-import { getPosts } from '@/app/actions';
+import { getPosts } from '../actions';
 
 const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -15,14 +15,15 @@ const HomeScreen = () => {
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['posts', 'infinite'],
     initialPageParam: 0,
+    staleTime: 1000 * 60 * 60,
     queryFn: async () => {
       const posts = await getPosts();
-      // LOG.info(posts.at(0)?.body, 'posts');
+
       posts.forEach((post) => {
-        queryClient.setQueryData([post.postId], post);
+        queryClient.setQueryData(['post', post.postId], post);
       });
 
-      LOG.info(posts.at(10));
+      // LOG.info(posts.at(10));
       return posts;
     },
     getNextPageParam: (pages) => pages.length,

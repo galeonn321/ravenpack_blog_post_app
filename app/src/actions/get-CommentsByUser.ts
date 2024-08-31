@@ -13,9 +13,9 @@ export const getCommentsByUser = async (userId: number): Promise<UserWithComment
     const url = `posts/${userId}/comments`;
     const { data } = await postsApi.get<UserWithComments[]>(url);
 
-    const postWithComment = data.map((comment) =>
-      CommentMapper.CommentApiToEntity(comment, avatar)
-    );
+    LOG.debug(data.at(0), 'data');
+
+    // const postsWithComment = data.map((comment) => CommentMapper.commentApiToEntity(comment));
 
     return data;
   } catch (error) {

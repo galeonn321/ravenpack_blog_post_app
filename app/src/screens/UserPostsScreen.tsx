@@ -51,7 +51,7 @@ const UserPostsScreen = ({ route }: Props) => {
     <ScrollView flex={1}>
       {data?.pages.flat().map((post) => {
         return (
-          <Card p='$5' borderRadius='$lg' maxWidth={width * 0.9} m='$2' mb='$12'>
+          <Card p='$5' borderRadius='$lg' maxWidth={width * 0.9} m='$2' mb='$12' key={post.id}>
             <Box flexDirection='row'>
               {/* <Avatar mr='$3'>
                 <AvatarFallbackText fontFamily='$heading'>RR</AvatarFallbackText>

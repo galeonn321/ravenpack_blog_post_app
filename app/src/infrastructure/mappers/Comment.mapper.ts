@@ -3,21 +3,18 @@ import { UserWithComments } from '../../domain/entities/UserWithComments';
 import { AvatarUserById } from '../../lib/AvatarUserById';
 
 export class CommentMapper {
-  static CommentApiToEntity(comment: UserWithComments, avatar: string): PostWithUser {
-    const user = users.find((user) => user.id === post.userId);
+  static commentApiToEntity(comment: UserWithComments): UserWithComments {
+    const cleanedBody = comment.body.replace(/\n/g, ' ');
 
-    const cleanedBody = post.body.replace(/\n/g, ' ');
+    LOG.info(comment, 'comment');
 
-    return {
-      postId: post.id,
-      title: post.title,
-      body: cleanedBody,
-      user: {
-        id: user?.id || 0,
-        name: user?.name || '',
-        username: user?.username || '',
-        avatar: AvatarUserById[user?.id || 0],
-      },
-    };
+    // return {
+    //   postId: comment.id,
+    //   id: comment.id,
+    //   body: cleanedBody,
+    //   name: comment.name,
+    //   email: comment.email,
+    // };
+    return comment;
   }
 }

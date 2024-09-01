@@ -13,7 +13,6 @@ export const getCommentsByUser = async (userId: number): Promise<UserWithComment
     const url = `posts/${userId}/comments`;
     const { data } = await postsApi.get<UserWithComments[]>(url);
 
-    LOG.debug(data, 'data');
     const postsWithComment = data.map((comment) => CommentMapper.commentApiToEntity(comment));
 
     return postsWithComment;

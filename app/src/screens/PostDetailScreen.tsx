@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Image, Text, View, VStack } from '@gluestack-ui/themed';
+import { Box, Divider, Image, Text, VStack } from '@gluestack-ui/themed';
 import React, { useEffect } from 'react';
 import { PostWithUser } from '../domain/entities/postWithUser';
 import { LOG } from '../config/logger';

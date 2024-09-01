@@ -15,9 +15,6 @@ const { width, height } = Dimensions.get('window');
 const PostDetailScreen = ({ route }: Props) => {
   const post: PostWithUser = route.params.post;
 
-  LOG.info('PostCard', post);
-  LOG.info('PostCard', post.user);
-
   return (
     <ScrollView flex={1}>
       <Image source={post.user.avatar} alt='logo top image' width={width} height={height / 2} />
@@ -35,7 +32,7 @@ const PostDetailScreen = ({ route }: Props) => {
         </Text>
       </Box>
       <Box mx='$4'>
-        <Divider my='$4' bgColor='#000' />
+        <Divider my='$4' />
         <Text fontSize='$3xl' color='#000' mb='$4'>
           {post.title}
         </Text>

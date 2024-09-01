@@ -87,7 +87,7 @@ const PostCard = ({ post }: Props) => {
           action='primary'
           isDisabled={false}
           isFocusVisible={false}
-          onPress={() => navigation.navigate('UserPostsScreen', { userId: post.user.id })}
+          onPress={() => navigation.navigate('UserPostsScreen', { user: post.user })}
         >
           <ButtonText>Check comments made by this user</ButtonText>
         </Button>

@@ -8,13 +8,12 @@ export class CommentMapper {
 
     LOG.info(comment, 'comment');
 
-    // return {
-    //   postId: comment.id,
-    //   id: comment.id,
-    //   body: cleanedBody,
-    //   name: comment.name,
-    //   email: comment.email,
-    // };
-    return comment;
+    return {
+      postId: comment.id,
+      id: comment.id,
+      body: cleanedBody,
+      name: comment.name,
+      email: comment.email,
+    };
   }
 }

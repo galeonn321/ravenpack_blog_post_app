@@ -2,12 +2,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import HomeScreen from '../screens/HomeScreen';
 import UserPostsScreen from '../screens/UserPostsScreen';
-import { PostWithUser } from '../domain/entities/postWithUser';
+import { PostWithUser, User } from '../domain/entities/postWithUser';
 
 export type RootStackParams = {
   HomeScreen: undefined;
   PostDetailScreen: { post: PostWithUser };
-  UserPostsScreen: { userId: number };
+  UserPostsScreen: { user: User };
 };
 
 const Stack = createStackNavigator<RootStackParams>();

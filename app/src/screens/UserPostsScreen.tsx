@@ -1,20 +1,8 @@
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarImage,
-  Box,
-  Card,
-  Heading,
-  ScrollView,
-  Text,
-  View,
-  VStack,
-} from '@gluestack-ui/themed';
+import { Box, Card, Heading, Image, ScrollView, Text, View, VStack } from '@gluestack-ui/themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { RootStackParams } from '../navigator/MainNavigator';
 import { LOG } from '../config/logger';
-import { getPosts } from '../actions';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { getCommentsByUser } from '../actions/get-CommentsByUser';
 import { Dimensions } from 'react-native';
@@ -26,22 +14,19 @@ const { width, height } = Dimensions.get('window');
 
 const UserPostsScreen = ({ route }: Props) => {
   const queryClient = useQueryClient();
-  const { userId } = route.params;
-
-  LOG.info('userId', userId);
+  const { user } = route.params;
 
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['userComments', 'infinite'],
     initialPageParam: 0,
     staleTime: 1000 * 60 * 60,
     queryFn: async () => {
-      const comments = await getCommentsByUser(userId);
+      const comments = await getCommentsByUser(user.id);
 
       comments.forEach((comment) => {
         queryClient.setQueryData(['userComments', comment.postId], comment);
       });
 
-      // LOG.info(posts.at(10));
       return comments;
     },
     getNextPageParam: (pages) => pages.length,
@@ -49,25 +34,43 @@ const UserPostsScreen = ({ route }: Props) => {
 
   return (
     <ScrollView flex={1}>
+      <Image source={user.avatar} alt='logo top image' width={width} height={400} />
+      <Box mx='$4' flexDirection='row' alignItems='center' mt='$8'>
+        <VStack>
+          <Text fontSize='$2xl' color='#000' bold>
+            {user.name}
+          </Text>
+          <Text fontSize='$md' color='#000'>
+            @{user.username}
+          </Text>
+        </VStack>
+      </Box>
+      <Text mx='$4' mt='$8'>
+        Total comments {data?.pages.flat().length}
+      </Text>
       {data?.pages.flat().map((post) => {
         return (
-          <Card p='$5' borderRadius='$lg' maxWidth={width * 0.9} m='$2' mb='$12' key={post.id}>
+          <Card
+            p='$5'
+            borderRadius='$lg'
+            maxWidth={width * 0.9}
+            minWidth={width * 0.9}
+            m='$2'
+            alignSelf='center'
+            key={post.id}
+          >
             <Box flexDirection='row'>
-              {/* <Avatar mr='$3'>
-                <AvatarFallbackText fontFamily='$heading'>RR</AvatarFallbackText>
-                <AvatarImage source={post.user?.avatar} alt='profile picture' />
-              </Avatar> */}
               <VStack>
-                <Heading size='sm' fontFamily='$heading'>
-                  12312312
+                <Heading size='sm' pt='$4' mb='$2' fontFamily='$heading'>
+                  {post.name}
                 </Heading>
                 <Text size='sm' fontFamily='$heading'>
-                  123123123
+                  {post.body}
                 </Text>
               </VStack>
               <Text
                 position='absolute'
-                fontSize='$sm'
+                fontSize='$xs'
                 fontStyle='normal'
                 fontFamily='$heading'
                 fontWeight='$normal'
@@ -83,14 +86,6 @@ const UserPostsScreen = ({ route }: Props) => {
                 {format(new Date(), 'dd/MM/yyyy')}
               </Text>
             </Box>
-            <VStack mb='$4'>
-              <Heading size='lg' fontFamily='$heading' mb='$2'>
-                12312312
-              </Heading>
-              <Text size='xs' fontFamily='$heading'>
-                123123123
-              </Text>
-            </VStack>
           </Card>
         );
       })}

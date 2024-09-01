@@ -13,11 +13,10 @@ export const getCommentsByUser = async (userId: number): Promise<UserWithComment
     const url = `posts/${userId}/comments`;
     const { data } = await postsApi.get<UserWithComments[]>(url);
 
-    LOG.debug(data.at(0), 'data');
+    LOG.debug(data, 'data');
+    const postsWithComment = data.map((comment) => CommentMapper.commentApiToEntity(comment));
 
-    // const postsWithComment = data.map((comment) => CommentMapper.commentApiToEntity(comment));
-
-    return data;
+    return postsWithComment;
   } catch (error) {
     if (error instanceof AxiosError) {
       LOG.error('Axios error while fetching posts:', error.message);

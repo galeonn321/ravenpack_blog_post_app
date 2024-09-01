@@ -4,11 +4,11 @@
     "slug": "ravenpack-blog-post-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon_logo_top.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/icon_logo_top.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
@@ -17,14 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash.png",
+        "foregroundImage": "./assets/images/icon_logo_top.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/icon_logo_top.png"
     },
     "plugins": ["expo-router"],
     "experiments": {

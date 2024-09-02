@@ -56,12 +56,10 @@ const HomeScreen = () => {
     });
   }, [allPosts]);
 
-  // Filter posts by selected user
   const filteredPosts = selectedUserId
     ? allPosts.filter((post) => post.user.id === selectedUserId)
     : allPosts;
 
-  // Find the selected user object
   const selectedUser = useMemo(
     () => users.find((user) => user.id === selectedUserId),
     [users, selectedUserId]
@@ -90,6 +88,7 @@ const HomeScreen = () => {
                   size='lg'
                   alignSelf='center'
                 />
+                <Text mb='$1'>Search by user</Text>
                 <Dropdown
                   style={[styles.dropdown]}
                   placeholderStyle={styles.placeholderStyle}
@@ -119,7 +118,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
   },
   camera: {
     flex: 1,

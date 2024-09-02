@@ -7,11 +7,10 @@ import {
   ButtonText,
   Card,
   Heading,
-  Pressable,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
-import React from 'react';
+import React, { memo } from 'react';
 import { LOG } from '../config/logger';
 import { useNavigation } from 'expo-router';
 import { NavigationProp } from '@react-navigation/native';
@@ -26,7 +25,7 @@ interface Props {
 
 const { width, height } = Dimensions.get('window');
 
-const PostCard = ({ post }: Props) => {
+const PostCard = memo(({ post }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   return (
@@ -94,6 +93,6 @@ const PostCard = ({ post }: Props) => {
       </VStack>
     </Card>
   );
-};
+});
 
 export default PostCard;

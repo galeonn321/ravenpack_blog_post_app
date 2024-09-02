@@ -4,8 +4,8 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { FlashList } from '@shopify/flash-list';
 import PostCard from '../components/PostCard';
 import { getPosts } from '../actions';
-import { ActivityIndicator, Dimensions, StyleSheet } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import { ActivityIndicator, Dimensions } from 'react-native';
+import UserDropdown from '../components/DropDownSelect';
 
 interface UserList {
   name: string;
@@ -17,7 +17,6 @@ const { width, height } = Dimensions.get('window');
 const HomeScreen = () => {
   const queryClient = useQueryClient();
 
-  // Select user
   const [selectedUserId, setSelectedUserId] = useState<number>(0);
   const [users, setUsers] = useState<UserList[]>([{ name: 'all', id: 0 }]);
 
@@ -89,20 +88,10 @@ const HomeScreen = () => {
                   alignSelf='center'
                 />
                 <Text mb='$1'>Search by user</Text>
-                <Dropdown
-                  style={[styles.dropdown]}
-                  placeholderStyle={styles.placeholderStyle}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  itemTextStyle={{ color: 'gray' }}
-                  data={users}
-                  maxHeight={300}
-                  labelField='name'
-                  valueField='id'
-                  placeholder='Select a user'
-                  value={selectedUser}
-                  onChange={(item: UserList) => {
-                    setSelectedUserId(item.id);
-                  }}
+                <UserDropdown
+                  users={users}
+                  selectedUser={selectedUser}
+                  onChange={(item) => setSelectedUserId(item.id)}
                 />
               </Box>
             )}
@@ -114,51 +103,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  camera: {
-    flex: 1,
-  },
-
-  dropdown: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    marginBottom: 16,
-  },
-
-  placeholderStyle: {
-    fontSize: 16,
-    color: 'gray',
-  },
-
-  selectedTextStyle: {
-    fontSize: 16,
-    color: 'gray',
-  },
-});
-
-{
-  /* <FlatList
-        data={data?.pages.flat() ?? []}
-        keyExtractor={(post, index) => `${post}-${index}`}
-        numColumns={1}
-        ListHeaderComponent={() => (
-          <Image
-            source={require('../../../assets/images/icon_logo_top.png')}
-            alt='logo top image'
-            size='lg'
-            alignSelf='center'
-          />
-        )}
-        renderItem={({ item }) => <PostCard post={item} />}
-        onEndReachedThreshold={0.6}
-        onEndReached={() => fetchNextPage()}
-        showsVerticalScrollIndicator={false}
-      /> */
-}

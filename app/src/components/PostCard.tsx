@@ -71,7 +71,7 @@ const PostCard = memo(({ post }: Props) => {
       </VStack>
       <VStack space='md'>
         <Button
-          size='md'
+          size='sm'
           variant='solid'
           action='primary'
           isDisabled={false}
@@ -81,7 +81,7 @@ const PostCard = memo(({ post }: Props) => {
           <ButtonText>More details about this post</ButtonText>
         </Button>
         <Button
-          size='md'
+          size='sm'
           variant='outline'
           action='primary'
           isDisabled={false}

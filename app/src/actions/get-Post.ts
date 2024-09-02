@@ -11,6 +11,7 @@ export const getPosts = async (): Promise<PostWithUser[]> => {
   try {
     const url = `/posts`;
     const users = await getUserById();
+
     const { data } = await postsApi.get<Post[]>(url);
 
     const postWithUser = data.map((post) => PostMapper.postApiToEntity(post, users));

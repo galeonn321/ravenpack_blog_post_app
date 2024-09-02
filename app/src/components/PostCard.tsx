@@ -29,7 +29,7 @@ const PostCard = memo(({ post }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   return (
-    <Card p='$5' borderRadius='$lg' maxWidth={width * 0.9} m='$2'>
+    <Card p='$5' borderRadius='$lg' m='$2' mx='$4'>
       <Box flexDirection='row' mb={'$2'}>
         <Avatar mr='$3'>
           <AvatarFallbackText fontFamily='$heading'>RR</AvatarFallbackText>
